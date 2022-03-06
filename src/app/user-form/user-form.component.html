@@ -1,0 +1,259 @@
+<!-- <app-home></app-home> -->
+
+<div class="container mt-5">
+  <h1>User Form</h1>
+  <div class="row">
+    <div class="col-sm-12">
+      <form [formGroup]="reactiveForm">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label>Name<span class="text-danger">*</span></label>
+              <input
+                type="text"
+                formControlName="name"
+                name="name"
+                class="form-control"
+                placeholder=""
+                #name
+              />
+              <span
+                *ngIf="
+                  submitted ||
+                  forms['name'].dirty ||
+                  (forms['name'].touched && forms['name'].invalid)
+                "
+                class="info-msg text-danger"
+              >
+                <small
+                  *ngIf="forms['name'].errors && forms['name'].errors?.['required']"
+                >
+                  User name is required
+                </small>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="row">
+          <div class="col-sm-12">
+            <button
+              class="btn btn-success"
+              (click)="addFullname()"
+              type="submit"
+            >
+              Add full Name
+            </button>
+          
+              
+          </div>
+        </div> -->
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label>Email<span class="text-danger">*</span></label>
+              <input
+                type="email"
+                formControlName="email"
+                name="email"
+                class="form-control"
+                placeholder=""
+                #email
+              />
+              <span
+                *ngIf="
+                  submitted ||
+                  forms['email'].dirty ||
+                  (forms['email'].touched && forms['email'].invalid)
+                "
+                class="info-msg text-danger"
+              >
+                <small
+                  *ngIf="forms['email'].errors && forms['email'].errors?.['required']"
+                >
+                  User email is required
+                </small>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label>Password<span class="text-danger">*</span></label>
+              <input
+                type="password"
+                formControlName="password"
+                class="form-control"
+                placeholder=""
+                #password
+              />
+              <span
+                *ngIf="
+                  submitted ||
+                  forms['password'].dirty ||
+                  (forms['password'].touched && forms['password'].invalid)
+                "
+                class="info-msg text-danger"
+              >
+                <small
+                  *ngIf="forms['password'].errors && forms['password'].errors?.['required']"
+                >
+                  User password is required
+                </small>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label>MobileNumber<span class="text-danger">*</span></label>
+              <input
+                type="text"
+                formControlName="mobileNumber"
+                class="form-control"
+                placeholder=""
+                #mobile
+              />
+              <span
+                *ngIf="
+                  submitted ||
+                  forms['mobileNumber'].dirty ||
+                  (forms['mobileNumber'].touched &&
+                    forms['mobileNumber'].invalid)
+                "
+                class="info-msg text-danger"
+              >
+                <small
+                  *ngIf="forms['mobileNumber'].errors && forms['mobileNumber'].errors?.['required']"
+                >
+                  User phone number is required
+                </small>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>DOB<span class="text-danger">*</span></label>
+              <input
+                type="date"
+                formControlName="dob"
+                class="form-control"
+                placeholder=""
+                required
+                (change)="dateToAge()"
+              />
+              <span
+                *ngIf="
+                  submitted ||
+                  forms['dob'].dirty ||
+                  (forms['dob'].touched && forms['dob'].invalid)
+                "
+                class="info-msg text-danger"
+              >
+                <small
+                  *ngIf="forms['dob'].errors && forms['dob'].errors?.['required']"
+                >
+                  User dob is required
+                </small>
+              </span>
+            </div>
+          </div>
+
+          <div class="col-sm-6">
+            <div class="form-group">
+              <label>Age<span class="text-danger">*</span></label>
+              <input
+                type="text"
+                formControlName="age"
+                class="form-control"
+                placeholder=""
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+
+        <ng-container
+          formArrayName="contacts" 
+          *ngFor="let data of getContactForm?.controls; let i = index"
+        >
+          <div class="row mb-3" [formGroupName]="i">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label
+                  >Contact Number: <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="mobileNumber"
+                  id="mobileNumber"
+                  formControlName="mobileNumber"
+                  placeholder=" Contact Mobile Number"
+                  class="form-control"
+                />
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label
+                  >Contact Email: <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="email"
+                  id="email"
+                  formControlName="email"
+                  placeholder="Contact Email"
+                  class="form-control"
+                />
+              </div>
+            </div>
+          </div>
+          <button
+            class="btn-primary"
+            (click)="removeContacts(i)"
+            *ngIf="getContactForm.length > 1"
+          >
+            Remove
+          </button>
+        </ng-container>
+        <div class="button1">
+          <button
+            class="btn btn-success"
+            (click)="initContacts()"
+            type="submit"
+          >
+            AddMore
+          </button>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-6 mt-3" >
+            <button
+              class="btn btn-success"
+              (click)="onUserAdd(reactiveForm.value)"
+              type="submit"
+            >
+              Add
+            </button>
+            <div class="col-sm-6 mt-3" >
+            <button class="btn btn-success" (click)="resetForm()" type="submit">
+              Reset
+            </button>
+          </div>
+
+           
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

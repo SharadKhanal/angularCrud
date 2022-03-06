@@ -1,0 +1,45 @@
+<!-- <app-home></app-home> -->
+<!-- <router-outlet></router-outlet> -->
+<div class="container">
+    
+<div class="table">
+<table style="width:100%">
+<tr class="bg-primary">
+    <th>S.N</th>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Password</th>
+    <th>Mobile</th>
+    <th>DOB</th>
+    
+    <th>Action</th>
+   
+    
+</tr>
+<tbody>
+<tr *ngFor="let data of userResponse;let i=index">
+    <td>{{i+1}}</td>
+    <td>{{data.id}}</td>
+    <td>{{data.name}}</td>
+    <td>{{data.email}}</td>
+    <td>{{data.password}}</td>
+    <td>{{data.mobileNumber}}</td>
+    <td>{{data.dob}}</td>
+    <td>
+        <button class="btn" (click)="delete(data.id)"><i class="fa fa-trash"></i></button>
+        <button class="btn"(click)="edit(data.id)" ><i class="fa fa-edit"></i></button>
+        <button class="btn" (click)="viewUser(data.id)"><i class="fa fa-eye"></i></button>
+
+    </td>
+    
+</tr>
+<div class="button">
+<button class="btn btn-success" (click)="onBack()">Back</button>
+</div>
+</tbody>
+</table>
+</div>
+
+
+
